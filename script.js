@@ -1,5 +1,8 @@
 //You can edit ALL of the code here
 function setup() {
+  const allShows = getAllShows();
+  const selectShow = document.getElementById('selectShow');
+  fillUpselections(allShows, selectShow);
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
   const searchBox = document.getElementById('searchBox');

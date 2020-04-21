@@ -44,11 +44,11 @@ body{
   flex-wrap: wrap;
   margin: auto;
   padding: 0.5% 0% 0.5% 15%;
-  border: 1px solid #eee;
+  /* border: 1px solid #eee; */
 }
 
 #searchBox{
-  flex:0.25;
+  /* flex:0.25; */
   /* align-items: center; */
   /* text-align: center; */
   margin-left: 1%;
