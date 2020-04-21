@@ -12,7 +12,7 @@ body{
   display: flex;
   flex-wrap: wrap;
   /* margin: auto; */
-  padding: 3%;
+  padding: 0% 3% 3% 3%;
 }
 
 .third{
@@ -35,4 +35,25 @@ body{
   padding:3%;
   font-weight: bolder;
   font-size: large;
+}
+
+.search-wrapper{
+  color: black;
+  /* width: 90%;  */
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  padding: 0.5% 0% 0.5% 15%;
+  border: 1px solid #eee;
+}
+
+#searchBox{
+  flex:0.25;
+  /* align-items: center; */
+  text-align: center;
+}
+
+#itemsNumber{
+  margin: auto;
+  padding: 0.5% 0% 0.5% 15%;
 }
