@@ -16,16 +16,28 @@
       <div id="selectBox" > </div>      
     </div>
     <div class="search-wrapper">
-    <label for="search" style="font-size: larger; margin-left: 3%;"> search Episodes : </label>
+    <label for="search" style="font-size: larger; margin-left: 3%;"> search : </label>
       <input id="searchBox" name="search" />
         
       <label  style="font-size: larger; margin-left: 3%;"> Current Show : </label>
-      <label id="showTitle" style="font-size: larger; margin-left: 1%;"> Game Of Thrones : </label>
+      <label id="showTitle" style="font-size: larger; margin-left: 1%;"> All Shows </label>
+      
     </div>
  
- 
-    <div id="itemsNumber"></div>
+    <div class="itemsNumber">
+      <div style="display: inline;" id="itemsNumber"></div>
+      <label id="" style="font-size: larger; margin-left: 3%;"> Sort Via: </label>
+      <select id="sort">
+        <option value="name-a-z" >Name A-Z</option>
+        <option value="name-z-a">Name Z-A</option>
+        <option value="rating+">Rating +</option>
+        <option value="rating-">Rating -</option>
+      </select>
 
+      <button id="goBack" style="margin-left:30%;" class="btn-show1"> Back To All Shows </button>
+    </div>
+   
+    
 
    
 

@@ -18,14 +18,70 @@ function makePageForEpisodes(episodeList) {
     epi = '<p> sorry. No episodes with this Name or discreption </p>';
   }
 
-  document.getElementById('itemsNumber').innerHTML = `<p> Episods Found : ${episodeList.length}</p>`
+  document.getElementById('itemsNumber').innerHTML = ` Items Found : ${episodeList.length}`
   rootElem.innerHTML = epi;
 
 }
 
+
+
+function makePageForShows(showList) {
+  window.episodes = [];
+  window.shows = showList;
+  const rootElem = document.getElementById("root");
+
+  let epi = '';
+  for (let i = 0; i < showList.length; i++) {
+    let epiTitle = ` ${showList[i].name}`;
+    let gen ='';
+    showList[i].genres.forEach(e => gen = gen + e)
+    epi = epi + `
+  <div class="third" >
+  <h4 class= "epi-title" id="${showList[i].id}"> ${epiTitle} </h4>
+  <img src=" ${ showList[i].image ? showList[i].image.medium : '#'} " />
+  ${ showList[i].summary}
+
+  <p class="lasttext"> status:  ${ showList[i].status }   ,
+  rating: ${  showList[i].rating.average }   </p>
+  <p class="lasttext">
+  runtime: ${  showList[i].runtime }   , 
+  genres:  ${ gen } 
+</p> 
+
+  <button class="btn-show" onClick="handleSelectShow(${ showList[i].id })" > see Episodes </button>
+  </div>
+  `;
+  }
+
+  if (showList.length === 0) {
+    epi = '<p> sorry. No Shows with this Name or discreption </p>';
+  }
+
+  document.getElementById('itemsNumber').innerHTML = ` Items Found : ${showList.length}`
+  rootElem.innerHTML = epi;
+}
+
 function doSearch(e) {
   let allEpi = document.querySelectorAll('.third');
-  const data = window.episodes;
+
+  var data = window.episodes;
+  if ( window.episodes.length == 0) { 
+    
+    data = window.shows;
+  
+    let term = e.target.value.trim();
+    let filteredEpi = data.filter((e) => {
+    return e.name.toLowerCase().includes(term.toLowerCase()) || e.summary.toLowerCase().includes(term.toLowerCase())
+  })
+
+  allEpi.forEach((e) => {
+    e.style.display = 'none';
+  })
+
+  return makePageForShows(filteredEpi);
+  
+  
+  }
   let term = e.target.value.trim();
   let filteredEpi = data.filter((e) => {
     return e.name.toLowerCase().includes(term.toLowerCase()) || e.summary.toLowerCase().includes(term.toLowerCase())
@@ -85,7 +141,7 @@ function handleSelect(elm) {
 function fillUpselectionsShow(showList, rootElem) {
 
 
-  let epi = `<select id="showSelector" autofocus="-1"  onChange=" handleSelectShow(this.value)"> <option value="Selcect a show" selected="selected">Selcect a show </option>`;
+  let epi = `<select id="showSelector" autofocus="-1"  onChange=" handleSelectShow(this.value)"> <option value="All Shows" selected="selected">All Shows </option>`;
   for (let i = 0; i < showList.length; i++) {
     let epiTitle = ` ${showList[i].name} `;
     epi = epi + `
@@ -100,10 +156,11 @@ function fillUpselectionsShow(showList, rootElem) {
 
 
 function handleSelectShow(showId) {
-  if(showId == 'Selcect a show'){
-    const rootElem = document.getElementById("root");
-      let epiTitle = '<h2> Welcome, please Select a show to show all its data </h2>';
-     return  rootElem.innerHTML = epiTitle;
+  if(showId == 'All Shows'){
+    const allShows = getAllShows();
+    const title = document.getElementById('showTitle');
+    title.innerText = 'All Shows';
+    return makePageForShows(allShows);
   }
  // selectedShowIdfunc(showId);
   fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
@@ -118,6 +175,8 @@ function handleSelectShow(showId) {
           .then(data2 => { 
               const title = document.getElementById('showTitle');
               title.innerText = data2.name;
+              let element = document.getElementById('showSelector');
+              element.value = showId;
 
           })
       
@@ -131,6 +190,11 @@ function handleSelectShow(showId) {
 }
 
 
+function doSort(){
+  
+}
+
+
 function setup() {
   let args = [...arguments];
   let showId=args[0];
@@ -138,6 +202,7 @@ function setup() {
   const allShows = getAllShows();
   const selectShow = document.getElementById('selectShow');
   fillUpselectionsShow(allShows, selectShow);
+  makePageForShows(allShows);
   //  const allEpisodes = getAllEpisodes();
   //  makePageForEpisodes(allEpisodes);
   //var window.selectedShowId;
@@ -150,6 +215,17 @@ function setup() {
   } else {
     fillUpselections(allEpisodes, selectBox);
   }
+
+
+  const goBack = document.getElementById('goBack');
+  goBack.addEventListener('click', ()=>{ setup(); });
+
+
+  const ttitle = document.getElementById('showTitle');
+    ttitle.innerText = 'All Shows';
+
+    const sortBox = document.getElementById('sort');
+    sortBox.addEventListener('change', doSort);
 
 }
 
