@@ -189,9 +189,101 @@ function handleSelectShow(showId) {
 
 }
 
+function doingDiffSort(compare){
 
-function doSort(){
+
+  let allEpi = document.querySelectorAll('.third');
+
+  var data = window.episodes;
+  if ( window.episodes.length == 0) { 
+    
+    data = window.shows;
+      let filteredEpi = data.sort(compare)
+      console.log('doing sort shows');
+      console.log(filteredEpi);
+
+  allEpi.forEach((e) => {
+    e.style.display = 'none';
+  })
+
+  return makePageForShows(filteredEpi);
   
+  
+  }
+  let filteredEpi = data.sort( compare )
+  console.log('doing sort epis');
+  console.log(filteredEpi);
+
+  allEpi.forEach((e) => {
+    e.style.display = 'none';
+  })
+
+  makePageForEpisodes(filteredEpi);
+
+
+}
+
+function doSort(e){
+  console.log(e.target.value);
+  let v = e.target.value;
+  if(v == 'name-a-z'){
+    function compare(a, b) {
+      if (a.name > b.name) return 1;
+      if (b.name > a.name) return -1;
+    
+      return 0;
+    }
+   
+    doingDiffSort(compare);
+  
+  }
+
+  if(v == 'name-z-a'){
+    function compare(a, b) {
+      if (b.name > a.name) return 1;
+      if (a.name > b.name) return -1;
+    
+      return 0;
+    }
+   
+    doingDiffSort(compare);
+  
+  }
+
+  if(v == 'rating+'){
+    function compare(a, b) {
+      if (a.rating.average > b.rating.average) return 1;
+      if (b.rating.average > a.rating.average) return -1;
+    
+      return 0;
+    }
+   
+    doingDiffSort(compare);
+  
+  }
+
+  if(v == 'rating-'){
+    function compare(a, b) {
+      if (b.rating.average > a.rating.average) return 1;
+      if (a.rating.average > b.rating.average) return -1;
+    
+      return 0;
+    }
+   
+    doingDiffSort(compare);
+  
+  }
+
+  if(v == 'no-sort'){
+    setup();
+  
+  }
+
+
+
+ 
+
+
 }
 
 
