@@ -29,6 +29,7 @@ body{
 .third > p{
   text-align: justify;
   padding: 5%;
+  max-height:200px;
 }
 
 .third > p.lasttext{
