@@ -29,7 +29,7 @@ body{
 .third > p{
   text-align: justify;
   padding: 5%;
-  height:200px;
+  height:min-content;
   overflow:hidden;
 }
 
