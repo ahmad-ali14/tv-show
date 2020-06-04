@@ -29,13 +29,15 @@ body{
 .third > p{
   text-align: justify;
   padding: 5%;
-  max-height:200px;
+  height:200px;
+  overflow:hidden;
 }
 
 .third > p.lasttext{
   text-align: center;
   padding: 0 auto;
   margin: -20px 0;
+  height: 100%
 }
 
 .epi-title{
